@@ -62,10 +62,9 @@ export default function BreathingApp() {
   const [breathCount, setBreathCount] = useState(0)
   const [selectedPattern, setSelectedPattern] = useState(breathingPatterns[0])
   const [showSettings, setShowSettings] = useState(false)
-  const [sessionDuration, setSessionDuration] = useState(5) // minutes
+  const [sessionDuration, setSessionDuration] = useState(5)
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
-  const startTimeRef = useRef<number>(0)
 
   const currentPhaseDuration = selectedPattern[currentPhase]
 
@@ -75,7 +74,6 @@ export default function BreathingApp() {
         setPhaseTime((prev) => {
           const newTime = prev + 0.1
           if (newTime >= currentPhaseDuration) {
-            // Move to next phase
             setCurrentPhase((prevPhase) => {
               switch (prevPhase) {
                 case "inhale":
@@ -116,7 +114,6 @@ export default function BreathingApp() {
     }
   }, [isActive, currentPhaseDuration, selectedPattern])
 
-  // Auto-stop after session duration
   useEffect(() => {
     if (totalTime >= sessionDuration * 60 && isActive) {
       handleStop()
@@ -125,7 +122,6 @@ export default function BreathingApp() {
 
   const handleStart = () => {
     setIsActive(true)
-    startTimeRef.current = Date.now()
   }
 
   const handlePause = () => {
@@ -172,7 +168,6 @@ export default function BreathingApp() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative">
-      {/* Dynamic ambient background */}
       <AmbientBackground isActive={isActive} phase={currentPhase} />
 
       <div className="w-full max-w-md mx-auto relative z-10">
@@ -195,7 +190,6 @@ export default function BreathingApp() {
               exit={{ opacity: 0, scale: 0.9 }}
               className="space-y-6"
             >
-              {/* Header */}
               <div className="text-center space-y-2">
                 <motion.h1
                   className="text-4xl font-bold text-white"
@@ -208,7 +202,6 @@ export default function BreathingApp() {
                 <p className="text-blue-200">{selectedPattern.name}</p>
               </div>
 
-              {/* Main Breathing Circle */}
               <Card className="bg-white/5 backdrop-blur-xl border-white/10 overflow-hidden">
                 <CardContent className="p-8">
                   <div className="relative flex items-center justify-center h-80">
@@ -220,7 +213,6 @@ export default function BreathingApp() {
                       colorClass={getPhaseColor()}
                     />
 
-                    {/* Phase Text */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-20">
                       <motion.h2
                         key={currentPhase}
@@ -251,10 +243,8 @@ export default function BreathingApp() {
                 </CardContent>
               </Card>
 
-              {/* Session Stats */}
               <SessionStats totalTime={totalTime} breathCount={breathCount} sessionDuration={sessionDuration} />
 
-              {/* Controls */}
               <div className="flex justify-center space-x-4">
                 {!isActive ? (
                   <Button
