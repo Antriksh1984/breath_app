@@ -1,8 +1,8 @@
-import BreathingApp from "@/components/breathing-app"
+import BreathingApp from "@/components/BreathingApp"
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 relative overflow-hidden">
       {/* Ambient background particles */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(120,119,198,0.1),transparent_50%)]" />
@@ -22,6 +22,6 @@ export default function Home() {
 
         <BreathingApp />
       </div>
-    </main>
+    </div>
   )
 }
